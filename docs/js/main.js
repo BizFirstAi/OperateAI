@@ -2,13 +2,15 @@
 document.addEventListener("DOMContentLoaded", () => {
   // Initialize AOS
   const AOS = window.AOS // Declare AOS variable
-  AOS.init({
-    duration: 1000,
-    easing: "ease-in-out-cubic",
-    once: true,
-    mirror: false,
-    offset: 100,
-  })
+  if (AOS) {
+    AOS.init({
+      duration: 1000,
+      easing: "ease-in-out-cubic",
+      once: true,
+      mirror: false,
+      offset: 100,
+    })
+  }
 
   // Initialize all components
   initPreloader()
@@ -76,11 +78,15 @@ function initNavigation() {
     }, 16),
   )
 
-  // Smooth scroll for nav links
+  // Smooth scroll for in-page anchor nav links only — regular multi-page
+  // links (e.g. "features.html") must be left alone so the browser navigates.
   navLinks.forEach((link) => {
     link.addEventListener("click", function (e) {
-      e.preventDefault()
       const targetId = this.getAttribute("href")
+      if (!targetId || targetId.charAt(0) !== "#") {
+        return
+      }
+      e.preventDefault()
       const targetSection = document.querySelector(targetId)
 
       if (targetSection) {
