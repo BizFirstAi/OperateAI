@@ -1,4 +1,5 @@
 # OperateAI
+**Live site:** https://bizfirstai.github.io/OperateAI/
 
 OperateAI — documentation and website source.
 
